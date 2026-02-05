@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Boots Avatar Voice AI - Real-Time Analytics Dashboard | AI Voice Solutions for Small Business</title>
+    <meta name="description" content="See how Boots Avatar Voice AI transforms small business communications with real-time call analytics, completion tracking, and revenue insights. Demo our AI voice assistant dashboard.">
+    <meta name="keywords" content="AI voice assistant, small business AI, voice AI analytics, call tracking, business automation, Boots On The Ground AI">
+    <meta name="author" content="Boots On The Ground AI">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://bootsagentai.com/voice-ai-demo">
+    <meta property="og:title" content="Boots Avatar Voice AI - Analytics Dashboard Demo">
+    <meta property="og:description" content="Real-time analytics for AI-powered voice communications. See call volumes, completion rates, and revenue tracking in action.">
+    <meta property="og:image" content="https://bootsagentai.com/images/voice-ai-dashboard-preview.png">
+    <meta property="og:site_name" content="Boots On The Ground AI">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Boots Avatar Voice AI - Analytics Dashboard">
+    <meta name="twitter:description" content="AI voice assistant analytics for small businesses. Track calls, completion rates, and revenue in real-time.">
+    <meta name="twitter:image" content="https://bootsagentai.com/images/voice-ai-dashboard-preview.png">
+
+    <!-- GEO Tags for Local SEO -->
+    <meta name="geo.region" content="US">
+    <meta name="geo.placename" content="United States">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://bootsagentai.com/voice-ai-demo">
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Boots Avatar Voice AI",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "description": "AI-powered voice assistant with real-time analytics dashboard for small businesses",
+        "offers": {
+            "@type": "AggregateOffer",
+            "lowPrice": "29",
+            "highPrice": "199",
+            "priceCurrency": "USD",
+            "offerCount": "3"
+        },
+        "author": {
+            "@type": "Organization",
+            "name": "Boots On The Ground AI",
+            "url": "https://bootsagentai.com"
+        },
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.8",
+            "ratingCount": "127"
+        }
+    }
+    </script>
+
+    <!-- Preconnect for Performance -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
+    <!-- Chart.js - Deferred Loading -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1" integrity="sha384-jb8JQMbMoBUzgWatfe6COACi2ljcDdZQ2OxczGA3bGNeWe+6DChMTBJemed7ZnvJ" crossorigin="anonymous" defer></script>
+
+    <style>
+        :root {
+            --bg-primary: #f5f7fa;
+            --bg-card: #ffffff;
+            --bg-header: #1a1a2e;
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --text-on-dark: #ffffff;
+            --color-1: #6366f1;
+            --color-2: #22c55e;
+            --color-3: #f59e0b;
+            --color-4: #ef4444;
+            --color-5: #8b5cf6;
+            --color-6: #06b6d4;
+            --positive: #22c55e;
+            --negative: #ef4444;
+            --neutral: #6c757d;
+            --gap: clamp(12px, 2vw, 16px);
+            --radius: 12px;
+            --accent: #6366f1;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Skip Link for Accessibility */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent);
+            color: white;
+            padding: 8px 16px;
+            z-index: 100;
+            text-decoration: none;
+            border-radius: 0 0 4px 0;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+
+        .dashboard-container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: var(--gap);
+        }
+
+        /* Embed Mode - removes extra padding when in iframe */
+        body.embed-mode .dashboard-container {
+            padding: 8px;
+        }
+        body.embed-mode .dashboard-footer {
+            display: none;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--bg-header) 0%, #2d2d44 100%);
+            color: var(--text-on-dark);
+            padding: clamp(16px, 3vw, 24px) clamp(16px, 3vw, 32px);
+            border-radius: var(--radius);
+            margin-bottom: var(--gap);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            box-shadow: 0 4px 20px rgba(26, 26, 46, 0.15);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: clamp(12px, 2vw, 16px);
+        }
+
+        .logo {
+            width: clamp(40px, 6vw, 48px);
+            height: clamp(40px, 6vw, 48px);
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(20px, 3vw, 24px);
+            flex-shrink: 0;
+        }
+
+        .header-title h1 {
+            font-size: clamp(16px, 2.5vw, 22px);
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .header-title p {
+            font-size: clamp(11px, 1.5vw, 13px);
+            opacity: 0.7;
+        }
+
+        .filters {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-group label {
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.7);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            display: none;
+        }
+
+        .filter-group select {
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-on-dark);
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.2s;
+            min-width: 120px;
+        }
+
+        .filter-group select:hover,
+        .filter-group select:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+            outline: none;
+        }
+
+        .filter-group select option {
+            background: var(--bg-header);
+            color: var(--text-on-dark);
+        }
+
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: var(--gap);
+            margin-bottom: var(--gap);
+        }
+
+        .kpi-card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: clamp(16px, 2.5vw, 24px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .kpi-icon {
+            width: clamp(36px, 5vw, 44px);
+            height: clamp(36px, 5vw, 44px);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(16px, 2.5vw, 20px);
+            margin-bottom: clamp(12px, 2vw, 16px);
+        }
+
+        .kpi-icon.calls { background: rgba(99, 102, 241, 0.12); }
+        .kpi-icon.duration { background: rgba(34, 197, 94, 0.12); }
+        .kpi-icon.completion { background: rgba(245, 158, 11, 0.12); }
+        .kpi-icon.revenue { background: rgba(139, 92, 246, 0.12); }
+        .kpi-icon.users { background: rgba(6, 182, 212, 0.12); }
+        .kpi-icon.abandoned { background: rgba(239, 68, 68, 0.12); }
+
+        .kpi-label {
+            font-size: clamp(11px, 1.5vw, 13px);
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .kpi-value {
+            font-size: clamp(24px, 4vw, 32px);
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .kpi-change {
+            font-size: clamp(11px, 1.5vw, 13px);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 20px;
+        }
+
+        .kpi-change.positive { color: var(--positive); background: rgba(34, 197, 94, 0.1); }
+        .kpi-change.negative { color: var(--negative); background: rgba(239, 68, 68, 0.1); }
+        .kpi-change.neutral { color: var(--neutral); background: rgba(108, 117, 125, 0.1); }
+
+        .chart-row {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--gap);
+            margin-bottom: var(--gap);
+        }
+
+        .chart-row.full-width {
+            grid-template-columns: 1fr;
+        }
+
+        .chart-container {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: clamp(16px, 2.5vw, 24px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .chart-container h3 {
+            font-size: clamp(13px, 1.8vw, 15px);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .chart-wrapper {
+            position: relative;
+            height: clamp(200px, 30vw, 300px);
+        }
+
+        .chart-wrapper canvas {
+            width: 100% !important;
+            height: 100% !important;
+        }
+
+        .chart-legend {
+            display: flex;
+            gap: 12px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .legend-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .table-section {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: clamp(16px, 2.5vw, 24px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            overflow-x: auto;
+            margin-bottom: var(--gap);
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .table-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .table-header h3 {
+            font-size: clamp(13px, 1.8vw, 15px);
+            font-weight: 600;
+        }
+
+        .table-stats {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: clamp(11px, 1.5vw, 13px);
+            min-width: 600px;
+        }
+
+        .data-table thead th {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 2px solid #e9ecef;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            white-space: nowrap;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.2s;
+            position: sticky;
+            top: 0;
+            background: var(--bg-card);
+        }
+
+        .data-table thead th:hover {
+            color: var(--text-primary);
+        }
+
+        .data-table tbody td {
+            padding: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .data-table tbody tr:hover {
+            background: #fafbfc;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .status-badge.completed { background: rgba(34, 197, 94, 0.1); color: #16a34a; }
+        .status-badge.abandoned { background: rgba(239, 68, 68, 0.1); color: #dc2626; }
+
+        .dashboard-footer {
+            text-align: center;
+            padding: 16px;
+            color: var(--text-secondary);
+            font-size: 12px;
+        }
+
+        .cta-banner {
+            background: linear-gradient(135deg, var(--accent) 0%, #8b5cf6 100%);
+            color: white;
+            padding: clamp(16px, 3vw, 24px);
+            border-radius: var(--radius);
+            text-align: center;
+            margin-bottom: var(--gap);
+        }
+
+        .cta-banner h2 {
+            font-size: clamp(16px, 2.5vw, 20px);
+            margin-bottom: 8px;
+        }
+
+        .cta-banner p {
+            font-size: clamp(12px, 1.5vw, 14px);
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--accent);
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 1024px) {
+            .chart-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .header-left {
+                justify-content: center;
+                text-align: center;
+            }
+
+            .filters {
+                justify-content: center;
+            }
+
+            .kpi-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .filter-group select {
+                min-width: 100px;
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .kpi-row {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .kpi-card {
+                padding: 14px;
+            }
+
+            .filters {
+                width: 100%;
+            }
+
+            .filter-group {
+                flex: 1;
+            }
+
+            .filter-group select {
+                width: 100%;
+            }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .kpi-card:hover,
+            .cta-button:hover {
+                transform: none;
+            }
+
+            .filter-group select {
+                font-size: 16px; /* Prevents zoom on iOS */
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                transition: none !important;
+                animation: none !important;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            body { background: white; }
+            .dashboard-container { max-width: none; }
+            .filters, .cta-banner { display: none; }
+            .chart-container, .kpi-card, .table-section {
+                break-inside: avoid;
+                box-shadow: none;
+                border: 1px solid #dee2e6;
+            }
+        }
+
+        /* Loading State */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            color: var(--text-secondary);
+        }
+
+        .loading::after {
+            content: '';
+            width: 24px;
+            height: 24px;
+            border: 3px solid #e9ecef;
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-left: 12px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <main id="main-content" class="dashboard-container" role="main">
+        <header class="dashboard-header" role="banner">
+            <div class="header-left">
+                <div class="logo" role="img" aria-label="Boots Avatar Voice AI Logo">🎙️</div>
+                <div class="header-title">
+                    <h1>Boots Avatar Voice AI</h1>
+                    <p>Analytics Dashboard</p>
+                </div>
+            </div>
+            <nav class="filters" role="navigation" aria-label="Dashboard filters">
+                <div class="filter-group">
+                    <label for="filter-daterange">Date Range</label>
+                    <select id="filter-daterange" aria-label="Select date range">
+                        <option value="7">Last 7 Days</option>
+                        <option value="14">Last 14 Days</option>
+                        <option value="30" selected>Last 30 Days</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-calltype">Call Type</label>
+                    <select id="filter-calltype" aria-label="Select call type">
+                        <option value="all">All Types</option>
+                        <option value="inbound">Inbound</option>
+                        <option value="outbound">Outbound</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="filter-status">Status</label>
+                    <select id="filter-status" aria-label="Select call status">
+                        <option value="all">All Status</option>
+                        <option value="completed">Completed</option>
+                        <option value="abandoned">Abandoned</option>
+                    </select>
+                </div>
+            </nav>
+        </header>
+
+        <section class="kpi-row" aria-label="Key performance indicators">
+            <article class="kpi-card">
+                <div class="kpi-icon calls" aria-hidden="true">📞</div>
+                <div class="kpi-label">Total Calls</div>
+                <div class="kpi-value" id="kpi-total-calls">—</div>
+                <div class="kpi-change neutral" id="kpi-total-calls-change">Loading...</div>
+            </article>
+            <article class="kpi-card">
+                <div class="kpi-icon duration" aria-hidden="true">⏱️</div>
+                <div class="kpi-label">Avg. Duration</div>
+                <div class="kpi-value" id="kpi-avg-duration">—</div>
+                <div class="kpi-change neutral" id="kpi-avg-duration-change">Loading...</div>
+            </article>
+            <article class="kpi-card">
+                <div class="kpi-icon completion" aria-hidden="true">✅</div>
+                <div class="kpi-label">Completion Rate</div>
+                <div class="kpi-value" id="kpi-completion-rate">—</div>
+                <div class="kpi-change neutral" id="kpi-completion-rate-change">Loading...</div>
+            </article>
+            <article class="kpi-card">
+                <div class="kpi-icon abandoned" aria-hidden="true">❌</div>
+                <div class="kpi-label">Abandonment</div>
+                <div class="kpi-value" id="kpi-abandonment-rate">—</div>
+                <div class="kpi-change neutral" id="kpi-abandonment-rate-change">Loading...</div>
+            </article>
+            <article class="kpi-card">
+                <div class="kpi-icon revenue" aria-hidden="true">💰</div>
+                <div class="kpi-label">Monthly Revenue</div>
+                <div class="kpi-value" id="kpi-revenue">—</div>
+                <div class="kpi-change neutral" id="kpi-revenue-change">Loading...</div>
+            </article>
+            <article class="kpi-card">
+                <div class="kpi-icon users" aria-hidden="true">👥</div>
+                <div class="kpi-label">Subscribers</div>
+                <div class="kpi-value" id="kpi-subscribers">—</div>
+                <div class="kpi-change neutral" id="kpi-subscribers-change">Loading...</div>
+            </article>
+        </section>
+
+        <section class="cta-banner" aria-label="Call to action">
+            <h2>Ready to transform your business communications?</h2>
+            <p>Join 250+ small businesses using Boots Avatar Voice AI to automate calls and grow revenue.</p>
+            <a href="https://bootsagentai.com/contact" class="cta-button">Get Started Free</a>
+        </section>
+
+        <section class="chart-row full-width" aria-label="Trend chart">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Daily Call Volume & Revenue</h3>
+                    <div class="chart-legend">
+                        <span class="legend-item"><span class="legend-dot" style="background: #6366f1"></span> Calls</span>
+                        <span class="legend-item"><span class="legend-dot" style="background: #22c55e"></span> Revenue</span>
+                    </div>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="trend-chart" aria-label="Line chart showing daily call volume and revenue trends"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="chart-row" aria-label="Distribution charts">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Call Status Distribution</h3>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="status-chart" aria-label="Doughnut chart showing completed vs abandoned calls"></canvas>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Revenue by Tier</h3>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="revenue-chart" aria-label="Bar chart showing revenue breakdown by subscription tier"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="chart-row" aria-label="Analytics charts">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Hourly Distribution</h3>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="hourly-chart" aria-label="Bar chart showing call distribution by hour of day"></canvas>
+                </div>
+            </div>
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3>Call Duration</h3>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="duration-chart" aria-label="Bar chart showing call duration distribution"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section class="table-section" aria-label="Recent calls table">
+            <div class="table-header">
+                <h3>Recent Calls</h3>
+                <span class="table-stats" id="table-stats">Loading...</span>
+            </div>
+            <div id="calls-table" role="region" aria-label="Scrollable table" tabindex="0">
+                <div class="loading">Loading data</div>
+            </div>
+        </section>
+
+        <footer class="dashboard-footer" role="contentinfo">
+            <p>Boots Avatar Voice AI Dashboard &bull; <a href="https://bootsagentai.com" style="color: inherit;">bootsagentai.com</a> &bull; Data refreshed: <span id="refresh-date"></span></p>
+        </footer>
+    </main>
+
+    <script>
+        // Detect embed mode
+        if (window.self !== window.top) {
+            document.body.classList.add('embed-mode');
+        }
+
+        // Color palette
+        const COLORS = ['#6366f1', '#22c55e', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'];
+
+        // Generate demo data
+        function generateDemoData() {
+            const data = [];
+            const now = new Date();
+            const callTypes = ['inbound', 'outbound'];
+            const statuses = ['completed', 'completed', 'completed', 'completed', 'abandoned'];
+            const tiers = ['Basic', 'Pro', 'Enterprise'];
+            const tierPrices = { Basic: 29, Pro: 79, Enterprise: 199 };
+
+            for (let day = 29; day >= 0; day--) {
+                const date = new Date(now);
+                date.setDate(date.getDate() - day);
+                const dateStr = date.toISOString().split('T')[0];
+                const baseCalls = 100 + (29 - day) * 2;
+                const dailyCalls = Math.floor(baseCalls + (Math.random() - 0.5) * 40);
+
+                for (let i = 0; i < dailyCalls; i++) {
+                    const hour = Math.floor(Math.random() * 24);
+                    const callType = callTypes[Math.floor(Math.random() * callTypes.length)];
+                    const status = statuses[Math.floor(Math.random() * statuses.length)];
+                    const duration = status === 'completed'
+                        ? Math.floor(120 + Math.random() * 480)
+                        : Math.floor(10 + Math.random() * 60);
+
+                    data.push({
+                        id: `CALL-${dateStr.replace(/-/g, '')}-${String(i).padStart(4, '0')}`,
+                        date: dateStr,
+                        hour: hour,
+                        type: callType,
+                        status: status,
+                        duration: duration,
+                        tier: tiers[Math.floor(Math.random() * tiers.length)]
+                    });
+                }
+            }
+
+            const subscribers = {
+                Basic: 145 + Math.floor(Math.random() * 20),
+                Pro: 89 + Math.floor(Math.random() * 15),
+                Enterprise: 23 + Math.floor(Math.random() * 8)
+            };
+
+            return { calls: data, subscribers, tierPrices };
+        }
+
+        function formatValue(value, format) {
+            switch (format) {
+                case 'currency':
+                    if (value >= 1e6) return `$${(value / 1e6).toFixed(1)}M`;
+                    if (value >= 1e3) return `$${(value / 1e3).toFixed(1)}K`;
+                    return `$${value.toFixed(0)}`;
+                case 'percent':
+                    return `${value.toFixed(1)}%`;
+                case 'duration':
+                    const mins = Math.floor(value / 60);
+                    const secs = Math.floor(value % 60);
+                    return mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
+                case 'number':
+                    if (value >= 1e6) return `${(value / 1e6).toFixed(1)}M`;
+                    if (value >= 1e3) return `${(value / 1e3).toFixed(1)}K`;
+                    return value.toLocaleString();
+                default:
+                    return value.toString();
+            }
+        }
+
+        function formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        class Dashboard {
+            constructor(data) {
+                this.rawData = data;
+                this.filteredCalls = data.calls;
+                this.charts = {};
+                this.init();
+            }
+
+            init() {
+                document.getElementById('filter-daterange').addEventListener('change', () => this.applyFilters());
+                document.getElementById('filter-calltype').addEventListener('change', () => this.applyFilters());
+                document.getElementById('filter-status').addEventListener('change', () => this.applyFilters());
+                this.applyFilters();
+                document.getElementById('refresh-date').textContent = new Date().toLocaleString();
+            }
+
+            applyFilters() {
+                const days = parseInt(document.getElementById('filter-daterange').value);
+                const callType = document.getElementById('filter-calltype').value;
+                const status = document.getElementById('filter-status').value;
+
+                const cutoffDate = new Date();
+                cutoffDate.setDate(cutoffDate.getDate() - days);
+                const cutoffStr = cutoffDate.toISOString().split('T')[0];
+
+                this.filteredCalls = this.rawData.calls.filter(call => {
+                    if (call.date < cutoffStr) return false;
+                    if (callType !== 'all' && call.type !== callType) return false;
+                    if (status !== 'all' && call.status !== status) return false;
+                    return true;
+                });
+
+                this.renderKPIs();
+                this.renderCharts();
+                this.renderTable();
+            }
+
+            renderKPIs() {
+                const calls = this.filteredCalls;
+                const totalCalls = calls.length;
+                const completedCalls = calls.filter(c => c.status === 'completed').length;
+                const avgDuration = calls.length > 0 ? calls.reduce((sum, c) => sum + c.duration, 0) / calls.length : 0;
+                const completionRate = totalCalls > 0 ? (completedCalls / totalCalls) * 100 : 0;
+                const abandonmentRate = 100 - completionRate;
+
+                const { subscribers, tierPrices } = this.rawData;
+                const monthlyRevenue = Object.keys(subscribers).reduce((sum, tier) => sum + (subscribers[tier] * tierPrices[tier]), 0);
+                const totalSubscribers = Object.values(subscribers).reduce((a, b) => a + b, 0);
+
+                const prevCalls = Math.floor(totalCalls * (0.85 + Math.random() * 0.1));
+                const prevDuration = avgDuration * (0.95 + Math.random() * 0.1);
+                const prevCompletion = completionRate * (0.95 + Math.random() * 0.05);
+                const prevRevenue = monthlyRevenue * 0.92;
+                const prevSubscribers = Math.floor(totalSubscribers * 0.94);
+
+                this.updateKPI('kpi-total-calls', totalCalls, prevCalls, 'number');
+                this.updateKPI('kpi-avg-duration', avgDuration, prevDuration, 'duration');
+                this.updateKPI('kpi-completion-rate', completionRate, prevCompletion, 'percent');
+                this.updateKPI('kpi-abandonment-rate', abandonmentRate, 100 - prevCompletion, 'percent', true);
+                this.updateKPI('kpi-revenue', monthlyRevenue, prevRevenue, 'currency');
+                this.updateKPI('kpi-subscribers', totalSubscribers, prevSubscribers, 'number');
+            }
+
+            updateKPI(id, value, prevValue, format, invertChange = false) {
+                document.getElementById(id).textContent = formatValue(value, format);
+                const changeEl = document.getElementById(id + '-change');
+                if (prevValue && prevValue !== 0) {
+                    const pctChange = ((value - prevValue) / prevValue) * 100;
+                    const sign = pctChange >= 0 ? '+' : '';
+                    changeEl.textContent = `${sign}${pctChange.toFixed(1)}% vs prior`;
+                    let isPositive = pctChange >= 0;
+                    if (invertChange) isPositive = !isPositive;
+                    changeEl.className = `kpi-change ${isPositive ? 'positive' : 'negative'}`;
+                }
+            }
+
+            renderCharts() {
+                this.renderTrendChart();
+                this.renderStatusChart();
+                this.renderRevenueChart();
+                this.renderHourlyChart();
+                this.renderDurationChart();
+            }
+
+            renderTrendChart() {
+                const dailyData = {};
+                this.filteredCalls.forEach(call => {
+                    if (!dailyData[call.date]) dailyData[call.date] = { calls: 0, revenue: 0 };
+                    dailyData[call.date].calls++;
+                    dailyData[call.date].revenue += call.status === 'completed' ? 2.5 : 0;
+                });
+
+                const dates = Object.keys(dailyData).sort();
+                const callsData = dates.map(d => dailyData[d].calls);
+                const revenueData = dates.map(d => dailyData[d].revenue);
+                const labels = dates.map(formatDate);
+
+                if (this.charts.trend) {
+                    this.charts.trend.data.labels = labels;
+                    this.charts.trend.data.datasets[0].data = callsData;
+                    this.charts.trend.data.datasets[1].data = revenueData;
+                    this.charts.trend.update('none');
+                } else {
+                    const ctx = document.getElementById('trend-chart').getContext('2d');
+                    this.charts.trend = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: labels,
+                            datasets: [
+                                { label: 'Calls', data: callsData, borderColor: COLORS[0], backgroundColor: COLORS[0] + '20', borderWidth: 2.5, fill: true, tension: 0.4, pointRadius: 0, pointHoverRadius: 6, yAxisID: 'y' },
+                                { label: 'Revenue', data: revenueData, borderColor: COLORS[1], backgroundColor: 'transparent', borderWidth: 2.5, borderDash: [5, 5], fill: false, tension: 0.4, pointRadius: 0, pointHoverRadius: 6, yAxisID: 'y1' }
+                            ]
+                        },
+                        options: {
+                            responsive: true, maintainAspectRatio: false, interaction: { mode: 'index', intersect: false },
+                            plugins: { legend: { display: false }, tooltip: { backgroundColor: '#1a1a2e', padding: 12, cornerRadius: 8 } },
+                            scales: {
+                                x: { grid: { display: false }, ticks: { maxTicksLimit: 8 } },
+                                y: { position: 'left', beginAtZero: true, grid: { color: '#f0f0f0' }, title: { display: true, text: 'Calls', font: { size: 11 } } },
+                                y1: { position: 'right', beginAtZero: true, grid: { display: false }, title: { display: true, text: 'Revenue ($)', font: { size: 11 } }, ticks: { callback: v => '$' + v } }
+                            }
+                        }
+                    });
+                }
+            }
+
+            renderStatusChart() {
+                const completed = this.filteredCalls.filter(c => c.status === 'completed').length;
+                const abandoned = this.filteredCalls.filter(c => c.status === 'abandoned').length;
+
+                if (this.charts.status) {
+                    this.charts.status.data.datasets[0].data = [completed, abandoned];
+                    this.charts.status.update('none');
+                } else {
+                    const ctx = document.getElementById('status-chart').getContext('2d');
+                    this.charts.status = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: { labels: ['Completed', 'Abandoned'], datasets: [{ data: [completed, abandoned], backgroundColor: [COLORS[1] + 'CC', COLORS[3] + 'CC'], borderColor: '#ffffff', borderWidth: 3 }] },
+                        options: { responsive: true, maintainAspectRatio: false, cutout: '65%', plugins: { legend: { position: 'bottom', labels: { usePointStyle: true, padding: 16, font: { size: 11 } } } } }
+                    });
+                }
+            }
+
+            renderRevenueChart() {
+                const { subscribers, tierPrices } = this.rawData;
+                const tiers = Object.keys(subscribers);
+                const revenueByTier = tiers.map(t => subscribers[t] * tierPrices[t]);
+
+                if (this.charts.revenue) {
+                    this.charts.revenue.data.datasets[0].data = revenueByTier;
+                    this.charts.revenue.update('none');
+                } else {
+                    const ctx = document.getElementById('revenue-chart').getContext('2d');
+                    this.charts.revenue = new Chart(ctx, {
+                        type: 'bar',
+                        data: { labels: tiers, datasets: [{ label: 'Revenue', data: revenueByTier, backgroundColor: [COLORS[0] + 'CC', COLORS[4] + 'CC', COLORS[2] + 'CC'], borderRadius: 8 }] },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true, grid: { color: '#f0f0f0' }, ticks: { callback: v => '$' + (v / 1000).toFixed(0) + 'K' } } } }
+                    });
+                }
+            }
+
+            renderHourlyChart() {
+                const hourlyData = new Array(24).fill(0);
+                this.filteredCalls.forEach(call => hourlyData[call.hour]++);
+                const labels = Array.from({ length: 24 }, (_, i) => `${i % 12 || 12}${i < 12 ? 'A' : 'P'}`);
+
+                if (this.charts.hourly) {
+                    this.charts.hourly.data.datasets[0].data = hourlyData;
+                    this.charts.hourly.update('none');
+                } else {
+                    const ctx = document.getElementById('hourly-chart').getContext('2d');
+                    this.charts.hourly = new Chart(ctx, {
+                        type: 'bar',
+                        data: { labels: labels, datasets: [{ label: 'Calls', data: hourlyData, backgroundColor: COLORS[5] + '99', borderRadius: 4 }] },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { maxTicksLimit: 12 } }, y: { beginAtZero: true, grid: { color: '#f0f0f0' } } } }
+                    });
+                }
+            }
+
+            renderDurationChart() {
+                const buckets = { '0-1m': 0, '1-3m': 0, '3-5m': 0, '5-10m': 0, '10m+': 0 };
+                this.filteredCalls.forEach(call => {
+                    const mins = call.duration / 60;
+                    if (mins < 1) buckets['0-1m']++;
+                    else if (mins < 3) buckets['1-3m']++;
+                    else if (mins < 5) buckets['3-5m']++;
+                    else if (mins < 10) buckets['5-10m']++;
+                    else buckets['10m+']++;
+                });
+
+                if (this.charts.duration) {
+                    this.charts.duration.data.datasets[0].data = Object.values(buckets);
+                    this.charts.duration.update('none');
+                } else {
+                    const ctx = document.getElementById('duration-chart').getContext('2d');
+                    this.charts.duration = new Chart(ctx, {
+                        type: 'bar',
+                        data: { labels: Object.keys(buckets), datasets: [{ label: 'Calls', data: Object.values(buckets), backgroundColor: COLORS[0] + '99', borderRadius: 4 }] },
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false } }, y: { beginAtZero: true, grid: { color: '#f0f0f0' } } } }
+                    });
+                }
+            }
+
+            renderTable() {
+                const container = document.getElementById('calls-table');
+                const recentCalls = this.filteredCalls.slice(-30).reverse();
+                document.getElementById('table-stats').textContent = `Showing ${recentCalls.length} of ${this.filteredCalls.length.toLocaleString()} calls`;
+
+                let html = '<table class="data-table"><thead><tr><th>Call ID</th><th>Date</th><th>Type</th><th>Duration</th><th>Status</th><th>Tier</th></tr></thead><tbody>';
+                recentCalls.forEach(call => {
+                    const statusClass = call.status === 'completed' ? 'completed' : 'abandoned';
+                    const icon = call.status === 'completed' ? '✓' : '✗';
+                    html += `<tr><td>${call.id}</td><td>${call.date}</td><td>${call.type.charAt(0).toUpperCase() + call.type.slice(1)}</td><td>${formatValue(call.duration, 'duration')}</td><td><span class="status-badge ${statusClass}">${icon} ${call.status}</span></td><td>${call.tier}</td></tr>`;
+                });
+                html += '</tbody></table>';
+                container.innerHTML = html;
+            }
+        }
+
+        // Initialize when Chart.js is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            function initDashboard() {
+                if (typeof Chart !== 'undefined') {
+                    const demoData = generateDemoData();
+                    window.dashboard = new Dashboard(demoData);
+                } else {
+                    setTimeout(initDashboard, 100);
+                }
+            }
+            initDashboard();
+        });
+    </script>
+</body>
+</html>
